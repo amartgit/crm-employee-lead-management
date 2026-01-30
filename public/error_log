@@ -1,0 +1,19 @@
+[11-Feb-2025 07:10:07 UTC] PHP Fatal error:  Cannot declare class App\Imports\LeadsImport, because the name is already in use in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/Admin/AdminLeadController.php on line 8
+[04-Mar-2025 11:42:54 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\SuperAdminController::editEmployee() in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/SuperAdminController.php on line 117
+[07-Mar-2025 10:56:19 Asia/Kolkata] PHP Fatal error:  Trait "App\Http\Controllers\Illuminate\Support\Facades\DB" not found in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/AdminController.php on line 9
+[07-Mar-2025 11:54:51 Asia/Kolkata] PHP Fatal error:  Cannot use temporary expression in write context in /home1/a1623fal/vibrant.kumarinfotech.net/storage/framework/views/9b8b1c7ffe38ef2480c0e0d35c46b0d4.php on line 28
+[07-Mar-2025 11:55:33 Asia/Kolkata] PHP Fatal error:  Cannot use temporary expression in write context in /home1/a1623fal/vibrant.kumarinfotech.net/storage/framework/views/9b8b1c7ffe38ef2480c0e0d35c46b0d4.php on line 28
+[07-Mar-2025 13:50:11 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\AdminController::getEmployeeDetails() in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/AdminController.php on line 135
+[07-Mar-2025 13:50:54 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\AdminController::getEmployeeDetails() in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/AdminController.php on line 135
+[27-Mar-2025 17:04:49 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Admin\AdminAttendanceController::toggleVerification() in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/Admin/AdminAttendanceController.php on line 94
+[27-Mar-2025 17:05:05 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Admin\AdminAttendanceController::toggleVerification() in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/Admin/AdminAttendanceController.php on line 94
+[15-Apr-2025 16:05:21 Asia/Kolkata] PHP Fatal error:  Cannot use Illuminate\Http\Request as Request because the name is already in use in /home1/a1623fal/vibrant.kumarinfotech.net/app/Http/Controllers/EmployeeController.php on line 8
+[25-Sep-2025 15:05:11 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home1/a1623fal/vibrant.kumarinfotech.net/public/tmp.php:3
+Stack trace:
+#0 /home1/a1623fal/vibrant.kumarinfotech.net/public/tmp.php(3): date()
+#1 {main}
+  thrown in /home1/a1623fal/vibrant.kumarinfotech.net/public/tmp.php on line 3
+[25-Sep-2025 15:05:25 UTC] PHP Fatal error:  Uncaught Error: Class "Date" not found in /home1/a1623fal/vibrant.kumarinfotech.net/public/tmp.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/a1623fal/vibrant.kumarinfotech.net/public/tmp.php on line 3

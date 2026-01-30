@@ -1,0 +1,4 @@
+[25-Feb-2025 06:01:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/a1623fal/vibrant.kumarinfotech.net/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home1/a1623fal/vibrant.kumarinfotech.net/config/cache.php on line 18

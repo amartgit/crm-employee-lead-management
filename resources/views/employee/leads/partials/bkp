@@ -1,0 +1,40 @@
+ <!--<td>-->
+                <!--    @if ($lead->employee_id === Auth::id() || !$lead->employee_id)-->
+                <!--    <form action="{{ route('leads.updateStatus', $lead->id) }}" method="POST">-->
+                <!--        @csrf-->
+                <!--        <select name="status" class="form-select form-select-sm px-2" style="max-width: 150px;" required onchange="this.form.submit()">-->
+                <!--            <option value="" {{ $lead->status === '' ? 'selected' : '' }}>Select</option>-->
+                <!--            <option value="Ringing" {{ $lead->status === 'Ringing' ? 'selected' : '' }}>Ringing</option>-->
+                <!--            <option value="Not Answered" {{ $lead->status === 'Not Answered' ? 'selected' : '' }}>Not Answered</option>-->
+                <!--            <option value="Contact Number Incorrect" {{ $lead->status === 'Contact Number Incorrect' ? 'selected' : '' }}>Contact Number Incorrect</option>-->
+                <!--            <option value="International Number" {{ $lead->status === 'International Number' ? 'selected' : '' }}>International Number</option>-->
+                <!--            <option value="Switched Off" {{ $lead->status === 'Switched Off' ? 'selected' : '' }}>Switched Off</option>-->
+                <!--            <option value="Already Finalized" {{ $lead->status === 'Already Finalized' ? 'selected' : '' }}>Already Finalized</option>-->
+                <!--            <option value="Not Interested" {{ $lead->status === 'Not Interested' ? 'selected' : '' }}>Not Interested</option>-->
+                <!--            <option value="Not Required" {{ $lead->status === 'Not Required' ? 'selected' : '' }}>Not Required</option>-->
+                <!--            <option value="If Required Will Connect Us" {{ $lead->status === 'If Required Will Connect Us' ? 'selected' : '' }}>If Required Will Connect Us</option>-->
+                <!--            <option value="Interested, Shared Profile" {{ $lead->status === 'Interested, Shared Profile' ? 'selected' : '' }}>Interested, Shared Profile</option>-->
+                <!--            <option value="Almost Closed" {{ $lead->status === 'Almost Closed' ? 'selected' : '' }}>Almost Closed</option>-->
+                <!--            <option value="Closed" {{ $lead->status === 'Closed' ? 'selected' : '' }}>Closed</option>-->
+                <!--            <option value="Other" {{ $lead->status === 'Other' ? 'selected' : '' }}>Other (Specify the reason Add Remark)</option>-->
+
+                <!--        </select>-->
+                <!--    </form>-->
+                <!--    @else-->
+                <!--    {{ $lead->status }}-->
+                <!--    @endif-->
+                <!--</td>-->
+
+                <!--<td>-->
+                <!--    @if ($lead->employee_id === Auth::id() || !$lead->employee_id)-->
+                <!--    <form action="{{ route('leads.editActions', $lead->id) }}" method="POST">-->
+                <!--        @csrf-->
+                <!--        <div class="d-flex gap-2">-->
+                <!--            <textarea name="actions" required class="form-control form-control-sm" rows="2" style="min-width: 150px;">{{ $lead->actions }}</textarea>-->
+                <!--            <button type="submit" class="btn btn-primary btn-sm">Save</button>-->
+                <!--        </div>-->
+                <!--    </form>-->
+                <!--    @else-->
+                <!--    {{ $lead->actions }}-->
+                <!--    @endif-->
+                <!--</td>-->
