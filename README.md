@@ -112,7 +112,7 @@ The database schema is provided **for reference and local testing**.
 ## ⚙️ Installation & Setup
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/amartgit/crm-employee-lead-management.git
 cd your-repo-name
 composer install
 cp .env.example .env
