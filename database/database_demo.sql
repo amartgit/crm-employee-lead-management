@@ -1,91 +1,125 @@
--- EMS Database Schema (Safe for GitHub)
--- -----------------------------------
+-- --------------------------------------------------------
+-- EMS SYSTEM: CREATE TABLES ONLY
+-- --------------------------------------------------------
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
+-- Employees Table
+CREATE TABLE IF NOT EXISTS `employees` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` varchar(255) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `mname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) NOT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
+  `whatsapp_number` varchar(255) DEFAULT NULL,
+  `department` enum('Sales','HR','IT','Manager','user','Finance - accounts','Production','Designer') NOT NULL DEFAULT 'user',
+  `dob` date DEFAULT NULL,
+  `gender` enum('Male','Female','Other') DEFAULT NULL,
+  `mailid` varchar(255) DEFAULT NULL,
+  `address` text,
+  `Emergency_contact` bigint(20) DEFAULT NULL,
+  `blood_group` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `employee_id` (`employee_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Employees
-CREATE TABLE employees (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  employee_id VARCHAR(50) UNIQUE NOT NULL,
-  fname VARCHAR(100) NOT NULL,
-  lname VARCHAR(100) NOT NULL,
-  phone_number VARCHAR(20) UNIQUE,
-  department ENUM('Sales','HR','IT','Manager','Finance','Production','Designer','User') DEFAULT 'User',
-  gender ENUM('Male','Female','Other'),
-  mailid VARCHAR(150) UNIQUE,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL,
-  deleted_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Users Table
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('SuperAdmin','Employee','Admin') NOT NULL DEFAULT 'Employee',
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `employee_id` (`employee_id`),
+  CONSTRAINT `users_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Users
-CREATE TABLE users (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  employee_id VARCHAR(50) UNIQUE NOT NULL,
-  name VARCHAR(150),
-  password VARCHAR(255) NOT NULL,
-  role ENUM('SuperAdmin','Admin','Employee') DEFAULT 'Employee',
-  remember_token VARCHAR(100),
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL,
-  deleted_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Attendance Table
+CREATE TABLE IF NOT EXISTS `attendances` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` bigint(20) UNSIGNED NOT NULL,
+  `date` date NOT NULL,
+  `check_in` time DEFAULT NULL,
+  `check_out` time DEFAULT NULL,
+  `work_type` varchar(255) DEFAULT NULL,
+  `total_working_time` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT 'Pending',
+  `notes` text,
+  `verified` tinyint(1) DEFAULT 0,
+  `total_break_time` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `attendances_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Attendances
-CREATE TABLE attendances (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  employee_id VARCHAR(50) NOT NULL,
-  date DATE NOT NULL,
-  check_in TIMESTAMP NULL,
-  check_out TIMESTAMP NULL,
-  work_type VARCHAR(50),
-  status VARCHAR(50) DEFAULT 'Pending',
-  total_working_time INT,
-  total_break_time INT,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Breaks Table
+CREATE TABLE IF NOT EXISTS `breakemps` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `attendance_id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `breakemps_attendance_fk` FOREIGN KEY (`attendance_id`) REFERENCES `attendances` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Breaks
-CREATE TABLE breakemps (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  attendance_id BIGINT UNSIGNED NOT NULL,
-  type VARCHAR(50),
-  start_time TIMESTAMP NULL,
-  end_time TIMESTAMP NULL,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Leads Table
+CREATE TABLE IF NOT EXISTS `leads` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `contact_info` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `upload_date` date DEFAULT NULL,
+  `status` enum('Ringing','Not Answered','Contact Number Incorrect','International Number','Switched Off','Already Finalized','Not Interested','Not Required','If Required Will Connect Us','Interested, Shared Profile','Almost Closed','Closed','Other') DEFAULT NULL,
+  `priority` enum('High','Medium','Low') NOT NULL DEFAULT 'Medium',
+  `employee_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `actions` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `leads_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Leads
-CREATE TABLE leads (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(150),
-  company VARCHAR(150),
-  contact_info VARCHAR(50),
-  city VARCHAR(100),
-  upload_date DATE,
-  status ENUM(
-    'Ringing','Not Answered','Interested','Closed','Not Interested','Other'
-  ),
-  priority ENUM('High','Medium','Low') DEFAULT 'Medium',
-  employee_id BIGINT UNSIGNED,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Leave Requests Table
+CREATE TABLE IF NOT EXISTS `leave_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` bigint(20) UNSIGNED NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `leave_type` varchar(255) NOT NULL DEFAULT 'Casual',
+  `reason` text,
+  `status` varchar(255) NOT NULL DEFAULT 'Pending',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `leave_requests_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Leave Requests
-CREATE TABLE leave_requests (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  employee_id BIGINT UNSIGNED NOT NULL,
-  start_date DATE NOT NULL,
-  end_date DATE NOT NULL,
-  leave_type VARCHAR(50) DEFAULT 'Casual',
-  reason TEXT,
-  status VARCHAR(50) DEFAULT 'Pending',
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL
-) ENGINE=InnoDB;
+-- Logins Table
+CREATE TABLE IF NOT EXISTS `logins` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` bigint(20) UNSIGNED NOT NULL,
+  `login_time` timestamp NULL DEFAULT NULL,
+  `logout_time` timestamp NULL DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `logins_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-COMMIT;
+-- --------------------------------------------------------
+-- ALL TABLES CREATED
+-- --------------------------------------------------------
