@@ -183,7 +183,7 @@ php artisan view:clear
 
 | Employee ID | Role       | Password   |
 | ----------- | ---------- | ---------- |
-| VI001       | SuperAdmin | (from SQL) |
+| VI001       | SuperAdmin | (from SQL) update from db |
 | VI002       | Admin      | (from SQL) |
 | VI003       | Employee   | (from SQL) |
 
