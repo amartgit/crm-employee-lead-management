@@ -171,6 +171,11 @@ php artisan serve
 ```
 
 Open browser: `http://127.0.0.1:8000`
+npm install if needed npm run dev
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+
 
 ---
 
